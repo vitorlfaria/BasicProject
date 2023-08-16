@@ -11,13 +11,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Data\Context\" />
-      <Folder Include="Data\Extensions\" />
-      <Folder Include="Data\Mappings\" />
-      <Folder Include="Data\Repositories\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.21" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.21" />
