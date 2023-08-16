@@ -1,15 +1,32 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Numerics;
 using Domain.Enums;
 
 namespace Domain.Entities;
 
+[Table("Persons")]
 public class Person : Entity
 {
+    [Required]
     public PersonQualification Qualification { get; set; }
+    
+    [Required]
     public PersonType Type { get; set; }
+    
+    [Required]
+    [MaxLength(100)]
     public string Name { get; set; }
+    
+    [Required]
+    [MaxLength(14)]
     public int Document { get; set; }
+    
+    [MaxLength(100)]
     public string FantasyName { get; set; }
+    
+    [Required]
+    [MaxLength(500)]
     public string Address { get; set; }
     
     public bool IsValid(out List<string> errorMessages)
