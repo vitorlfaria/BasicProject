@@ -35,32 +35,20 @@ public class BaseContext : IdentityDbContext<User>
     
     public override int SaveChanges()
     {
-        try
+        var entries = (from entry in ChangeTracker.Entries()
+            where entry.State is EntityState.Added or EntityState.Modified
+            select entry).ToList();
+
+        foreach (var entityEntry in entries)
         {
-            base.SaveChanges();
-        }
-        catch (DbUpdateException ex)
-        {
-            string textError = string.Empty;
-            foreach (var entityEntry in base.ChangeTracker.Entries().Where(et => et.State != EntityState.Unchanged))
+            ((Entity)entityEntry.Entity).UpdatedAt = DateTime.Now;
+            
+            if (entityEntry.State == EntityState.Added)
             {
-                foreach (var entry in entityEntry.CurrentValues.Properties)
-                {
-                    var prop = entityEntry.Property(entry.Name).Metadata;
-                    var value = entry.PropertyInfo?.GetValue(entityEntry.Entity);
-                    var valueLength = value?.ToString()?.Length;
-                    var typemapping = prop.GetTypeMapping();
-                    var typeSize = ((Microsoft.EntityFrameworkCore.Storage.RelationalTypeMapping)typemapping).Size;
-                    if (typeSize.HasValue && valueLength > typeSize.Value)
-                    {
-                        textError += $"The field {entry.Name} must be a string or array type with a maximum length of '{typeSize.Value}'.";
-                    }
-                }
+                ((Entity)entityEntry.Entity).CreatedAt = DateTime.Now;
             }
-
-            throw new Exception(textError);
         }
-
-        return 0;
+        
+        return base.SaveChanges();
     }
 }

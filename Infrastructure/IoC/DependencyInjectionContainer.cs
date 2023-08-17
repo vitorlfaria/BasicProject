@@ -1,3 +1,5 @@
+using Domain.Interfaces;
+using Infrastructure.Data.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.IoC;
@@ -10,5 +12,7 @@ public class DependencyInjectionContainer
         
         
         // Repository
+        services.AddScoped<IPersonRepository, PersonRepository>();
+        services.AddScoped<IDepartmentRepository, DepartmentRepository>();
     }
 }

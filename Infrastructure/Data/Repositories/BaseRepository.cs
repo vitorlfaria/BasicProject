@@ -11,10 +11,10 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
     private readonly BaseContext _context;
     private readonly DbSet<TEntity> _dbSet;
 
-    public BaseRepository(BaseContext context, DbSet<TEntity> dbSet)
+    public BaseRepository(BaseContext context)
     {
         _context = context;
-        _dbSet = dbSet;
+        _dbSet = _context.Set<TEntity>();
     }
 
     public void Dispose()
