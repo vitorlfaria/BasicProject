@@ -1,4 +1,5 @@
 using Api.Configurations;
+using BlogApi.Configurations;
 using Domain.Entities;
 using Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 builder.Services.AddDepencyInjectionSetup();
+builder.Services.AddAutoMapperSetup();
 builder.Services.AddIdentityCore<User>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
